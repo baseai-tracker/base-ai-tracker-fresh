@@ -6,7 +6,7 @@
   <title>BaseAI Tracker</title>
   <meta name="description" content="AI-Powered Crypto Tracker on Base Network"/>
 
-  <!-- Tailwind CSS CDN dengan custom config -->
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -14,8 +14,8 @@
       theme: {
         extend: {
           colors: {
-            primary: '#a855f7',     // Purple accent
-            secondary: '#00d4ff',   // Neon cyan accent
+            primary: '#a855f7',
+            secondary: '#00d4ff',
           },
           boxShadow: {
             'neumorphic': '5px 5px 10px #0a0a0a, -5px -5px 10px #1a1a1a',
@@ -26,10 +26,10 @@
     }
   </script>
 
-  <!-- RainbowKit styles -->
+  <!-- RainbowKit CSS -->
   <link rel="stylesheet" href="https://unpkg.com/@rainbow-me/rainbowkit@2/styles.css"/>
 
-  <!-- Libraries via CDN -->
+  <!-- Libraries -->
   <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@tanstack/react-query@5/dist/umd/index.production.min.js"></script>
@@ -38,146 +38,6 @@
   <script src="https://unpkg.com/@rainbow-me/rainbowkit@2"></script>
 
   <style>
-    body { background: #000; color: #e5e5e5; }
+    body { background: #000; color: #e5e5e5; font-family: system-ui, sans-serif; }
     .gradient-bg { background: linear-gradient(135deg, #0a0a0a, #1a1a1a); }
-    .card-neumorphic { background: #111; box-shadow: 5px 5px 10px #0a0a0a, -5px -5px 10px #1a1a1a; transition: all 0.3s; }
-    .card-neumorphic:hover { box-shadow: 0 0 20px rgba(0,212,255,0.6); transform: translateY(-2px); }
-  </style>
-</head>
-<body class="min-h-screen antialiased">
-
-  <div id="root"></div>
-
-  <script type="text/babel">
-    const { WagmiProvider, createConfig, http } = window.Wagmi;
-    const { RainbowKitProvider, getDefaultConfig, ConnectButton } = window.RainbowKit;
-    const { QueryClient, QueryClientProvider } = window.ReactQuery;
-    const { base } = window.Wagmi.chains;
-
-    // Wagmi + RainbowKit config (ganti projectId!)
-    const config = getDefaultConfig({
-      appName: 'BaseAI Tracker',
-      projectId: 'YOUR_PROJECT_ID_HERE',  // <-- GANTI DENGAN WALLET CONNECT PROJECT ID KAMU
-      chains: [base],
-      transports: { [base.id]: http() },
-    });
-
-    const queryClient = new QueryClient();
-
-    // Mock trending tokens
-    const mockTokens = [
-      { rank: 1, name: 'AIXBT', symbol: 'AIXBT', price: 0.128, change24h: 120, volume: '2.1M', mc: '45M', hype: true },
-      { rank: 2, name: 'BASEMEME', symbol: 'BMEME', price: 0.0045, change24h: -8, volume: '950K', mc: '12M', hype: false },
-      { rank: 3, name: 'VIRTUALS', symbol: 'VIRT', price: 0.67, change24h: 85, volume: '4.8M', mc: '120M', hype: true },
-    ];
-
-    function Navbar() {
-      return (
-        <nav className="sticky top-0 z-50 bg-black/90 backdrop-blur border-b border-purple-900/40 px-6 py-4">
-          <div className="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="#" className="text-2xl font-bold bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">BaseAI Tracker</a>
-            <div className="flex items-center gap-4">
-              <input placeholder="Search token/address" className="bg-gray-900 border border-purple-600/40 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary"/>
-              <ConnectButton />
-            </div>
-          </div>
-        </nav>
-      );
-    }
-
-    function Hero() {
-      return (
-        <section className="gradient-bg py-20 text-center px-6">
-          <h1 className="text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent mb-6">
-            Your AI Hub on Base
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto">
-            Track trending tokens, AI agents, yields & risks in real-time
-          </p>
-          <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-            <button className="bg-primary hover:bg-purple-600 px-8 py-4 rounded-xl font-bold text-lg">Connect Wallet</button>
-            <button className="border border-secondary hover:bg-secondary/20 px-8 py-4 rounded-xl font-bold text-lg">Chat with AI</button>
-          </div>
-        </section>
-      );
-    }
-
-    function TokenCard({ token }) {
-      const positive = token.change24h > 0;
-      return (
-        <div className="card-neumorphic rounded-2xl p-6 text-center">
-          <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-3xl font-bold">
-            {token.symbol[0]}
-          </div>
-          <h3 className="text-xl font-bold">{token.name} <span className="text-gray-400">({token.symbol})</span></h3>
-          <p className="text-3xl font-semibold my-3 text-secondary">${token.price.toFixed(4)}</p>
-          <p className={`text-lg ${positive ? 'text-green-400' : 'text-red-400'}`}>
-            24h: {positive ? '+' : ''}{token.change24h}%
-          </p>
-          <div className="mt-4 text-sm text-gray-400 space-y-1">
-            <p>Vol: ${token.volume}</p>
-            <p>MCap: ${token.mc}</p>
-          </div>
-          {token.hype && <span className="mt-4 inline-block bg-secondary/20 text-secondary px-4 py-1 rounded-full text-sm">AI Hype 🔥</span>}
-        </div>
-      );
-    }
-
-    function Trending() {
-      return (
-        <section className="py-16 px-6 max-w-7xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12">Trending on Base</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {mockTokens.map((t, i) => <TokenCard key={i} token={t} />)}
-          </div>
-        </section>
-      );
-    }
-
-    function AIChat() {
-      const [open, setOpen] = React.useState(false);
-      return (
-        <>
-          <button
-            onClick={() => setOpen(!open)}
-            className="fixed bottom-8 right-8 bg-gradient-to-r from-secondary to-primary w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-2xl hover:scale-110 transition z-50"
-          >
-            💬
-          </button>
-          {open && (
-            <div className="fixed bottom-28 right-8 bg-gray-900/95 border border-secondary/40 rounded-2xl w-96 p-6 shadow-2xl backdrop-blur z-50">
-              <div className="h-80 overflow-y-auto mb-4 space-y-4 text-sm">
-                <p className="text-secondary">AI: Halo! Mau analisa token apa di Base hari ini?</p>
-              </div>
-              <div className="flex">
-                <input placeholder="Tanya apa saja..." className="flex-1 bg-gray-800 border border-gray-700 rounded-l-lg px-4 py-3 text-sm focus:outline-none focus:border-secondary"/>
-                <button className="bg-secondary text-black px-5 rounded-r-lg font-bold">Kirim</button>
-              </div>
-            </div>
-          )}
-        </>
-      );
-    }
-
-    function App() {
-      return (
-        <WagmiProvider config={config}>
-          <QueryClientProvider client={queryClient}>
-            <RainbowKitProvider>
-              <Navbar />
-              <Hero />
-              <Trending />
-              <AIChat />
-            </RainbowKitProvider>
-          </QueryClientProvider>
-        </WagmiProvider>
-      );
-    }
-
-    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-  </script>
-
-  <!-- Babel standalone untuk compile JSX di browser -->
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-</body>
-</html>
+    .card-neumorphic { background: #111; box-shadow: 5px 5px 10px #0a0a0a, -5px -5px 
