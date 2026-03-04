@@ -31,26 +31,22 @@
     .gradient-bg { background: linear-gradient(135deg, #0a0a0a, #1a1a1a); }
     .card-neumorphic { background: #111; box-shadow: 5px 5px 10px #0a0a0a, -5px -5px 10px #1a1a1a; transition: all 0.3s ease; }
     .card-neumorphic:hover { box-shadow: 0 0 20px rgba(0,212,255,0.6); transform: translateY(-4px); }
+    .snap-x { scroll-snap-type: x mandatory; }
+    .snap-center { scroll-snap-align: center; }
   </style>
 </head>
 <body class="min-h-screen antialiased">
 
   <!-- Navbar -->
-  <nav class="sticky top-0 z-50 bg-black/90 backdrop-blur-md border-b border-purple-900/40 px-6 py-4">
+  <nav class="sticky top-0 z-50 bg-black/90 backdrop-blur-md border-b border-purple-900/40 px-4 sm:px-6 py-4">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
-      <a href="#" class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">BaseAI Tracker</a>
-      <div class="flex items-center gap-4">
-        <input type="text" placeholder="Search token/address..." class="hidden sm:block bg-gray-900 border border-purple-600/40 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary w-64"/>
+      <a href="#" class="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">BaseAI Tracker</a>
+      <div class="flex items-center gap-3 sm:gap-6">
+        <input type="text" placeholder="Search token/address..." class="hidden sm:block bg-gray-900 border border-purple-600/40 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary w-48 sm:w-64"/>
         <button class="bg-primary hover:bg-purple-600 px-5 py-2 rounded-lg font-medium text-sm">Connect Wallet</button>
       </div>
     </div>
   </nav>
 
   <!-- Hero -->
-  <section class="gradient-bg py-16 md:py-24 text-center px-6">
-    <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent mb-6 leading-tight">
-      Your AI-Powered Hub<br/>for Base Network
-    </h1>
-    <p class="text-lg md:text-2xl text-gray-300 max-w-3xl mx-auto mb-10">
-      Track trending tokens, AI agents, yields & risks in real-time on Coinbase L2
-    </p
+  <section class
