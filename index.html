@@ -14,8 +14,8 @@
       theme: {
         extend: {
           colors: {
-            primary: '#a855f7',     // Purple accent
-            secondary: '#00d4ff',   // Neon cyan accent
+            primary: '#a855f7',
+            secondary: '#00d4ff',
           },
           boxShadow: {
             'neumorphic': '5px 5px 10px #0a0a0a, -5px -5px 10px #1a1a1a',
@@ -49,4 +49,123 @@
   </nav>
 
   <!-- Hero -->
-  <section class
+  <section class="gradient-bg py-16 md:py-24 text-center px-4 sm:px-6">
+    <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent mb-6 leading-tight">
+      Your AI-Powered Hub<br/>for Base Network
+    </h1>
+    <p class="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-10">
+      Track trending tokens, AI agents, yields & risks in real-time on Coinbase L2 Ethereum
+    </p>
+    <div class="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
+      <button class="bg-primary hover:bg-purple-600 px-8 sm:px-10 py-4 sm:py-5 rounded-xl font-bold text-base sm:text-lg shadow-lg">Connect Wallet</button>
+      <button class="border-2 border-secondary hover:bg-secondary/20 px-8 sm:px-10 py-4 sm:py-5 rounded-xl font-bold text-base sm:text-lg">Chat with AI</button>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  <section class="py-6 px-4 sm:px-6 max-w-7xl mx-auto">
+    <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
+      <button class="bg-gray-800 hover:bg-gray-700 px-5 py-2 rounded-full font-medium text-sm border border-purple-600/30">All</button>
+      <button class="bg-gray-800 hover:bg-gray-700 px-5 py-2 rounded-full font-medium text-sm border border-purple-600/30">AI Agents</button>
+      <button class="bg-gray-800 hover:bg-gray-700 px-5 py-2 rounded-full font-medium text-sm border border-purple-600/30">Memecoins</button>
+      <button class="bg-gray-800 hover:bg-gray-700 px-5 py-2 rounded-full font-medium text-sm border border-purple-600/30">DeFi</button>
+      <button class="bg-gray-800 hover:bg-gray-700 px-5 py-2 rounded-full font-medium text-sm border border-purple-600/30">New (24h)</button>
+    </div>
+  </section>
+
+  <!-- Trending Tokens -->
+  <section class="py-12 px-4 sm:px-6 max-w-7xl mx-auto">
+    <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-10 bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">Trending Tokens</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+      <div class="card-neumorphic rounded-2xl p-6 text-center">
+        <div class="w-20 h-20 mx-auto mb-5 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-4xl font-bold shadow-lg">A</div>
+        <h3 class="text-2xl font-bold mb-2">AIXBT</h3>
+        <p class="text-4xl font-semibold text-secondary mb-3">$0.128</p>
+        <p class="text-green-400 text-xl font-medium">+120% 24h</p>
+        <p class="text-sm text-gray-500 mt-3">Vol: $2.1M | MCap: $45M</p>
+        <span class="mt-4 inline-block bg-secondary/20 text-secondary px-4 py-1 rounded-full text-sm font-medium">AI Hype 🔥</span>
+      </div>
+
+      <div class="card-neumorphic rounded-2xl p-6 text-center">
+        <div class="w-20 h-20 mx-auto mb-5 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-4xl font-bold shadow-lg">B</div>
+        <h3 class="text-2xl font-bold mb-2">BASEMEME</h3>
+        <p class="text-4xl font-semibold text-secondary mb-3">$0.0045</p>
+        <p class="text-red-400 text-xl font-medium">-8% 24h</p>
+        <p class="text-sm text-gray-500 mt-3">Vol: $950K | MCap: $12M</p>
+      </div>
+
+      <div class="card-neumorphic rounded-2xl p-6 text-center">
+        <div class="w-20 h-20 mx-auto mb-5 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-4xl font-bold shadow-lg">V</div>
+        <h3 class="text-2xl font-bold mb-2">VIRTUALS</h3>
+        <p class="text-4xl font-semibold text-secondary mb-3">$0.67</p>
+        <p class="text-green-400 text-xl font-medium">+85% 24h</p>
+        <p class="text-sm text-gray-500 mt-3">Vol: $4.8M | MCap: $120M</p>
+        <span class="mt-4 inline-block bg-secondary/20 text-secondary px-4 py-1 rounded-full text-sm font-medium">AI Agent</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Insights Carousel -->
+  <section class="py-12 px-4 sm:px-6 max-w-7xl mx-auto bg-gray-950/50">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-10 text-secondary">AI Insights</h2>
+    <div class="flex overflow-x-auto gap-6 pb-6 snap-x snap-mandatory">
+      <div class="card-neumorphic min-w-[320px] sm:min-w-[400px] p-6 rounded-2xl snap-center">
+        <h3 class="text-xl sm:text-2xl font-bold mb-3">Hot AI Agent</h3>
+        <p class="text-secondary text-2xl sm:text-3xl font-bold">$AIXBT +120% 24h</p>
+        <p class="text-gray-300 mt-3">Rising due to new Virtuals Protocol launch. Bullish sentiment high.</p>
+      </div>
+      <div class="card-neumorphic min-w-[320px] sm:min-w-[400px] p-6 rounded-2xl snap-center">
+        <h3 class="text-xl sm:text-2xl font-bold mb-3">Whale Alert</h3>
+        <p class="text-secondary text-2xl sm:text-3xl font-bold">Large buy detected</p>
+        <p class="text-gray-300 mt-3">Major wallet accumulated on Aerodrome. Watch for pumps.</p>
+      </div>
+      <div class="card-neumorphic min-w-[320px] sm:min-w-[400px] p-6 rounded-2xl snap-center">
+        <h3 class="text-xl sm:text-2xl font-bold mb-3">Risk Watch</h3>
+        <p class="text-secondary text-2xl sm:text-3xl font-bold">High volatility alert</p>
+        <p class="text-gray-300 mt-3">Several memecoins showing unusual patterns. Proceed with caution.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating AI Chat Bubble -->
+  <div class="fixed bottom-6 right-6 z-50">
+    <button id="chatBtn" class="bg-gradient-to-r from-secondary to-primary w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center text-2xl sm:text-3xl shadow-2xl hover:scale-110 transition duration-300">
+      💬
+    </button>
+  </div>
+
+  <!-- Chat Modal -->
+  <div id="chatModal" class="fixed inset-0 bg-black/80 hidden flex items-center justify-center z-50 px-4">
+    <div class="bg-gray-900 border border-secondary/40 rounded-2xl w-full max-w-md sm:max-w-lg p-6 relative">
+      <button id="closeChat" class="absolute top-4 right-4 text-gray-400 hover:text-secondary text-3xl">&times;</button>
+      <h3 class="text-2xl font-bold text-secondary mb-4">AI Chat Assistant</h3>
+      <div class="h-64 sm:h-80 overflow-y-auto mb-4 space-y-4 text-sm bg-gray-800/50 p-4 rounded-lg">
+        <p class="text-secondary">AI: Halo! Mau analisa token apa di Base? Contoh: "Analyze 0xAIXBT" atau "What's trending?"</p>
+      </div>
+      <div class="flex">
+        <input id="chatInput" type="text" placeholder="Tanya apa saja..." class="flex-1 bg-gray-800 border border-gray-700 rounded-l-lg px-4 py-3 text-sm focus:outline-none focus:border-secondary"/>
+        <button id="sendChat" class="bg-secondary text-black px-6 rounded-r-lg font-bold">Kirim</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const chatBtn = document.getElementById('chatBtn');
+    const chatModal = document.getElementById('chatModal');
+    const closeChat = document.getElementById('closeChat');
+    const sendChat = document.getElementById('sendChat');
+    const chatInput = document.getElementById('chatInput');
+
+    chatBtn.addEventListener('click', () => chatModal.classList.remove('hidden'));
+    closeChat.addEventListener('click', () => chatModal.classList.add('hidden'));
+
+    sendChat.addEventListener('click', () => {
+      if (chatInput.value.trim()) {
+        alert('AI Response (mock): Sedang menganalisa "' + chatInput.value + '"... Hasil: Bullish 85%, risk medium.');
+        chatInput.value = '';
+      }
+    });
+  </script>
+
+</body>
+  </html>
