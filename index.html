@@ -6,7 +6,6 @@
   <title>BaseAI Tracker</title>
   <meta name="description" content="AI-Powered Crypto Tracker on Base Network"/>
 
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -27,7 +26,7 @@
   </script>
 
   <style>
-    body { background: #000; color: #e5e5e5; font-family: system-ui, -apple-system, sans-serif; transition: background 0.3s, color 0.3s; }
+    body { background: #000; color: #e5e5e5; font-family: system-ui, -apple-system, sans-serif; transition: all 0.3s; }
     body.light { background: #f8f9fa; color: #1a1a1a; }
     .gradient-bg { background: linear-gradient(135deg, #0a0a0a, #1a1a1a); }
     body.light .gradient-bg { background: linear-gradient(135deg, #e5e7eb, #f3f4f6); }
@@ -39,12 +38,14 @@
     .snap-center { scroll-snap-align: center; }
     .pie-chart { width: 140px; height: 140px; border-radius: 50%; background: conic-gradient(#00d4ff 0% 40%, #a855f7 40% 70%, #ef4444 70% 100%); }
     .hidden { display: none !important; }
+    .loading { animation: spin 1s linear infinite; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
   </style>
 </head>
 <body class="min-h-screen antialiased dark">
 
   <!-- Navbar -->
-  <nav class="sticky top-0 z-50 bg-black/90 dark:bg-black/90 backdrop-blur-md border-b border-purple-900/40 px-4 sm:px-6 py-4">
+  <nav class="sticky top-0 z-50 bg-black/90 backdrop-blur-md border-b border-purple-900/40 px-4 sm:px-6 py-4">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
       <a href="#" class="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">BaseAI Tracker</a>
       <div class="flex items-center gap-3 sm:gap-6">
@@ -99,7 +100,7 @@
         <p class="text-secondary text-2xl sm:text-3xl font-bold">$AIXBT +120% 24h</p>
         <p class="text-gray-300 mt-3">Rising due to new Virtuals Protocol launch. Bullish sentiment high.</p>
       </div>
-      <!-- ... card lain sama seperti sebelumnya ... -->
+      <!-- Tambah card lain sesuai kebutuhan -->
     </div>
   </section>
 
@@ -153,7 +154,7 @@
     </button>
   </div>
 
-  <!-- Modals (Chat, Wallet, Token Detail) -->
+  <!-- Modals -->
   <!-- Chat Modal -->
   <div id="chatModal" class="fixed inset-0 bg-black/80 hidden flex items-center justify-center z-50 px-4">
     <div class="bg-gray-900 border border-secondary/40 rounded-2xl w-full max-w-md sm:max-w-lg p-6 relative">
@@ -194,7 +195,7 @@
     </div>
   </div>
 
-  <!-- JavaScript Full -->
+  <!-- JavaScript Lengkap -->
   <script>
     // Token data (9 cards)
     const tokens = [
@@ -209,10 +210,15 @@
       { name: "PROTOCOLX", symbol: "PROTO", price: 0.456, change: 65, vol: "2.9M", mcap: "65M", category: "ai", hype: true }
     ];
 
-    // Generate sparkline SVG lebih variatif
+    // Generate sparkline lebih variatif & smooth
     function generateSparkline() {
-      const points = Array(12).fill(0).map(() => Math.random() * 30 + 5);
-      const isPositive = Math.random() > 0.4;
+      const points = [];
+      let current = 15;
+      for (let i = 0; i < 12; i++) {
+        current += (Math.random() - 0.5) * 8;
+        points.push(Math.max(5, Math.min(25, current)));
+      }
+      const isPositive = points[points.length-1] > points[0];
       const color = isPositive ? '#00d4ff' : '#ef4444';
       let pointsStr = '';
       points.forEach((p, i) => {
@@ -244,7 +250,7 @@
       });
     }
 
-    // Search functionality
+    // Search real-time
     document.getElementById('searchInput').addEventListener('input', (e) => {
       const query = e.target.value.toLowerCase().trim();
       const filtered = tokens.filter(t => t.name.toLowerCase().includes(query) || t.symbol.toLowerCase().includes(query));
@@ -275,7 +281,7 @@
     function showTokenDetail(token) {
       document.getElementById('tokenDetailContent').innerHTML = `
         <h2 class="text-3xl font-bold text-secondary mb-4">${token.name} (${token.symbol})</h2>
-        <p class="text-5xl font-bold text-secondary mb-6">$${token.price.toFixed(4)}</p>
+        <p class="text-5xl font-bold text-secondary mb-6" data-detail-price>$${token.price.toFixed(4)}</p>
         <p class="${token.change > 0 ? 'text-green-400' : 'text-red-400'} text-2xl mb-6">${token.change > 0 ? '+' : ''}${token.change}% 24h</p>
         <div class="bg-gray-800 p-4 rounded-xl mb-6">
           <h4 class="text-xl font-bold mb-3">Candlestick Mock (24h)</h4>
@@ -298,7 +304,7 @@
       document.getElementById('tokenDetailModal').classList.remove('hidden');
     }
 
-    // Theme toggle
+    // Theme toggle + save
     function toggleTheme() {
       document.body.classList.toggle('light');
       document.body.classList.toggle('dark');
@@ -307,7 +313,6 @@
       localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
     }
 
-    // Load saved theme
     if (localStorage.getItem('theme') === 'light') {
       document.body.classList.add('light');
       document.body.classList.remove('dark');
@@ -328,26 +333,33 @@
       }
     }
 
-    // Fetch real prices (contoh untuk AIXBT pair di Base)
+    // Fetch real prices (contoh untuk AIXBT dan AERO di Base)
     async function updateRealPrices() {
-      try {
-        const proxy = 'https://api.allorigins.win/raw?url=';
-        // Contoh pair AIXBT di Base (ganti dengan pair real kalau punya)
-        const url = 'https://api.dexscreener.com/latest/dex/pairs/base/0x...pair-address...';
-        const res = await fetch(proxy + encodeURIComponent(url));
-        const data = await res.json();
-        if (data.pairs && data.pairs[0]) {
-          const price = data.pairs[0].priceUsd;
-          document.querySelector('[data-price-symbol="AIXBT"]').textContent = `$${parseFloat(price).toFixed(4)}`;
+      const proxy = 'https://api.allorigins.win/raw?url=';
+      const pairs = [
+        'https://api.dexscreener.com/latest/dex/pairs/base/0x...aixbt-pair...', // ganti dengan pair real AIXBT
+        'https://api.dexscreener.com/latest/dex/pairs/base/0x...aero-pair...'   // ganti dengan pair real AERO
+      ];
+
+      for (const url of pairs) {
+        try {
+          const res = await fetch(proxy + encodeURIComponent(url));
+          const data = await res.json();
+          if (data.pairs && data.pairs[0]) {
+            const price = data.pairs[0].priceUsd;
+            const symbol = data.pairs[0].baseToken.symbol;
+            const el = document.querySelector(`[data-price-symbol="${symbol}"]`);
+            if (el) el.textContent = `$${parseFloat(price).toFixed(4)}`;
+          }
+        } catch (e) {
+          console.log('Fetch error:', e);
         }
-      } catch (e) {
-        console.log('Real price fetch error:', e);
       }
     }
 
     // Update prices setiap 30 detik
     setInterval(updateRealPrices, 30000);
-    updateRealPrices(); // Jalankan pertama kali
+    updateRealPrices();
 
     // Initial render
     renderTokens();
